@@ -1,2 +1,3 @@
-# openbadges-frontend
-Simple frontend for OpenBadges
+# OpenBadges frontend
+
+Simple frontend for OpenBadges.
