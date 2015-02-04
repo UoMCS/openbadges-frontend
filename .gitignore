@@ -1,2 +1,3 @@
 src/composer.lock
 src/vendor/
+src/config.php
