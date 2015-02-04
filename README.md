@@ -1,3 +1,3 @@
-# OpenBadges frontend
+# Open Badges frontend
 
-Simple frontend for OpenBadges.
+Simple frontend for Open Badges.
