@@ -1,7 +1,7 @@
 <?php
 
 /*
-  Autoload function for Open Badges Backend
+  Autoload function for Open Badges Frontend
   Based on PSR-4 autoloader example from:
   https://github.com/php-fig/fig-standards
   With some changes and using portable constants for directory
@@ -9,7 +9,7 @@
 */
 spl_autoload_register(function($class) {
   // Assume all classes are under this single namespace
-  $prefix = 'UoMCS\\OpenBadges\\Backend\\';
+  $prefix = 'UoMCS\\OpenBadges\\Frontend\\';
 
   $base_dir = __DIR__ . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR;
 
@@ -22,7 +22,7 @@ spl_autoload_register(function($class) {
   }
 
   // Relative class is the last part of full class name
-  // e.g. UoMCS\OpenBadges\Backend\Utility => Utility
+  // e.g. UoMCS\OpenBadges\Frontend\Client => Client
   $relative_class = substr($class, $len);
 
   $file = $base_dir . str_replace('\\', DIRECTORY_SEPARATOR, $relative_class) . '.php';
