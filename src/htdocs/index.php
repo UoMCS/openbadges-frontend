@@ -8,8 +8,23 @@ use UoMCS\OpenBadges\Frontend\Client;
 
 $app = new Silex\Application();
 
+$app->get('/badges/{id}', function($id) use ($app) {
+  $client = new Client();
+  $response = $client->get("/badges/$id");
+
+  if (!$response->isOk())
+  {
+    $app->abort($response->getStatusCode());
+  }
+
+  $badge = $client->getBodyArray();
+
+  return $twig->render('badges/show.html', array('badge' => $badge)); 
+});
+
 $app->get('/badges', function() use ($app) {
-  $response = Client::get('/badges');
+  $client = new Client();
+  $response = $client->get('/badges');
 
   if (!$response->isOk())
   {
@@ -19,7 +34,7 @@ $app->get('/badges', function() use ($app) {
   $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATES_DIR);
   $twig = new Twig_Environment($loader);
 
-  $badges = json_decode($response->getBody(), true);
+  $badges = $client->getBodyArray();
 
   return $twig->render('badges/index.html', array('badges' => $badges));
 });
