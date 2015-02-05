@@ -19,7 +19,10 @@ $app->get('/badges/{id}', function($id) use ($app) {
 
   $badge = $client->getBodyArray();
 
-  return $twig->render('badges/show.html', array('badge' => $badge)); 
+  $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATES_DIR);
+  $twig = new Twig_Environment($loader);
+
+  return $twig->render('badges/show.html', array('badge' => $badge));
 });
 
 $app->get('/badges', function() use ($app) {
@@ -31,10 +34,10 @@ $app->get('/badges', function() use ($app) {
     $app->abort($response->getStatusCode(), 'Error retrieving data: ' . $response->getBody());
   }
 
+  $badges = $client->getBodyArray();
+
   $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATES_DIR);
   $twig = new Twig_Environment($loader);
-
-  $badges = $client->getBodyArray();
 
   return $twig->render('badges/index.html', array('badges' => $badges));
 });
