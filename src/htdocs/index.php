@@ -42,5 +42,22 @@ $app->get('/badges', function() use ($app) {
   return $twig->render('badges/index.html', array('badges' => $badges));
 });
 
+$app->get('/issuers/{id}', function($id) use ($app) {
+  $client = new Client();
+  $response = $client->get("/issuers/$id");
+
+  if (!$response->isOk())
+  {
+    $app->abort($response->getStatusCode());
+  }
+
+  $issuer = $client->getBodyArray();
+
+  $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATES_DIR);
+  $twig = new Twig_Environment($loader);
+
+  return $twig->render('issuers/show.html', array('issuer' => $issuer));
+});
+
 $app['debug'] = OPEN_BADGES_DEBUG_MODE;
 $app->run();
