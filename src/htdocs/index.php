@@ -59,5 +59,22 @@ $app->get('/issuers/{id}', function($id) use ($app) {
   return $twig->render('issuers/show.html', array('issuer' => $issuer));
 });
 
+$app->get('/issuers', function() use ($app) {
+  $client = new Client();
+  $response = $client->get('/issuers');
+
+  if (!$response->isOk())
+  {
+    $app->abort($response->getStatusCode(), 'Error retrieving data: ' . $response->getBody());
+  }
+
+  $issuers = $client->getBodyArray();
+
+  $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATES_DIR);
+  $twig = new Twig_Environment($loader);
+
+  return $twig->render('issuers/index.html', array('issuers' => $issuers));
+});
+
 $app['debug'] = OPEN_BADGES_DEBUG_MODE;
 $app->run();

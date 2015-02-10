@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+  {% for issuer in issuers %}
+    <h2>{{ issuer.name }}</h2>
+  {% endfor %}
+{% endblock %}
