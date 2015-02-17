@@ -8,6 +8,24 @@ use UoMCS\OpenBadges\Frontend\Client;
 
 $app = new Silex\Application();
 
+$app->get('/assertions/{uid}', function($uid) use ($app) {
+  $client = new Client();
+  $response = $client->get("/assertions/$uid");
+
+  if (!$response->isOk())
+  {
+    $app->abort($response->getStatusCode());
+  }
+
+  $badge = $client->getBodyArray();
+
+  $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATES_DIR);
+  $twig = new Twig_Environment($loader);
+
+  return $twig->render('assertions/show.html', array('badge' => $badge));
+})
+->assert('uid', '[0-9a-zA-Z]+');
+
 $app->get('/badges/{id}', function($id) use ($app) {
   $client = new Client();
   $response = $client->get("/badges/$id");
