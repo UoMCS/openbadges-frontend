@@ -26,6 +26,23 @@ $app->get('/assertions/{uid}', function($uid) use ($app) {
 })
 ->assert('uid', '[0-9a-zA-Z]+');
 
+$app->get('/assertions/{email}', function($email) use($app) {
+  $client = new Client();
+  $response = $client->get("/assertions/$email");
+
+  if (!$response->isOk())
+  {
+    $app->abort($response->getStatusCode());
+  }
+
+  $badges = $client->getBodyArray();
+
+  $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATES_DIR);
+  $twig = new Twig_Environment($loader);
+
+  return $twig->render('assertions/list.html', array('badges' => $badges));
+});
+
 $app->get('/badges/{id}', function($id) use ($app) {
   $client = new Client();
   $response = $client->get("/badges/$id");
