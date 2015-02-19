@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+  {% for badge in badges %}
+    <p><strong>Issued:</strong> {{ badge.issued }}</p>
+  {% endfor %}
+{% endblock %}
