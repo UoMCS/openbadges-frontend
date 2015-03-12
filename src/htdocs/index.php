@@ -45,7 +45,7 @@ $app->get('/assertions/{email}', function($email) use($app) {
   return $twig->render('assertions/list.html', array('badges' => $badges));
 });
 
-$app->get('/badges/images/{$id}', function($id) use ($app) {
+$app->get('/badges/images/{id}', function($id) use ($app) {
   $client = new Client();
   $client_response = $client->get("/badges/images/$id");
 
