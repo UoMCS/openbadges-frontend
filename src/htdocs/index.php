@@ -6,6 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use UoMCS\OpenBadges\Frontend\Client;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 $app = new Silex\Application();
@@ -62,7 +63,7 @@ $app->get('/badges/images/{id}', function($id) use ($app) {
 })
 ->assert('id', '[1-9][0-9]*');
 
-$app->get('/badges/{id}', function($id) use ($app) {
+$app->get('/badges/{id}', function(Request $request, $id) use ($app) {
   $client = new Client();
   $response = $client->get("/badges/$id");
 
@@ -72,6 +73,8 @@ $app->get('/badges/{id}', function($id) use ($app) {
   }
 
   $badge = $client->getBodyArray();
+
+  $badge['image'] = str_replace(OPEN_BADGES_BACKEND_URL, $request->getSchemeAndHttpHost(), $badge['image']);
 
   $loader = new Twig_Loader_Filesystem(TWIG_TEMPLATES_DIR);
   $twig = new Twig_Environment($loader);
