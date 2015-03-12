@@ -1,4 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-  {{ badge.name }}
+  <p>{{ badge.name }}</p>
+  {% if badge.image %}
+    <img src="{{ badge.image }}"><br>
+  {% endif %}
 {% endblock %}
