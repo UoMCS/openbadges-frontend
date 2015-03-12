@@ -6,6 +6,8 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use UoMCS\OpenBadges\Frontend\Client;
 
+use Symfony\Component\HttpFoundation\Response;
+
 $app = new Silex\Application();
 
 $app->get('/assertions/{uid}', function($uid) use ($app) {
@@ -42,6 +44,23 @@ $app->get('/assertions/{email}', function($email) use($app) {
 
   return $twig->render('assertions/list.html', array('badges' => $badges));
 });
+
+$app->get('/badges/images/{$id}', function($id) use ($app) {
+  $client = new Client();
+  $client_response = $client->get("/badges/images/$id");
+
+  if (!$client_response->isOk())
+  {
+    $app->abort($client_response->getStatusCode());
+  }
+
+  $response = new Response();
+  $response->setContent($client_response->getBody());
+  $response->headers->set('Content-Type', 'image/png');
+
+  return $response;
+})
+->assert('id', '[1-9][0-9]*');
 
 $app->get('/badges/{id}', function($id) use ($app) {
   $client = new Client();
