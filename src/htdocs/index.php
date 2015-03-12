@@ -78,7 +78,7 @@ $app->get('/badges/{id}', function($id) use ($app) {
 
   return $twig->render('badges/show.html', array('badge' => $badge));
 })
-->assert('id', '[0-9]+');
+->assert('id', '[1-9][0-9]*');
 
 $app->get('/badges', function() use ($app) {
   $client = new Client();
