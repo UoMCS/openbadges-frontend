@@ -115,7 +115,8 @@ $app->get('/issuers/{id}', function($id) use ($app) {
   $twig = new Twig_Environment($loader);
 
   return $twig->render('issuers/show.html', array('issuer' => $issuer));
-});
+})
+->assert('id', '[1-9][0-9]*');
 
 $app->get('/issuers', function() use ($app) {
   $client = new Client();
