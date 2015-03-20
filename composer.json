@@ -9,7 +9,7 @@
     {
       "type": "vcs",
       "url": "https://github.com/UoMCS/openbadges-frontend"
-    },
+    }
   ],
   "autoload": {
     "psr-4": { "OpenBadges\\": "src/" }
