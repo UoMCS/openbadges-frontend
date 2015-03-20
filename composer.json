@@ -1,10 +1,20 @@
 {
+  "name": "uomcs/openbadges-frontend",
+  "description": "Simple frontend for OpenBadges",
   "repositories": [
     {
       "type": "composer",
       "url": "https://packages.zendframework.com/"
-    }
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/UoMCS/openbadges-frontend"
+    },
   ],
+  "autoload": {
+    "psr-4": { "OpenBadges\\": "src/" }
+  },
+  "license": "MIT",
   "require": {
     "zendframework/zend-http": "2.*",
     "silex/silex": "~1.2",
