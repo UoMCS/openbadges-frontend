@@ -1,4 +1,3 @@
-src/composer.lock
-src/composer.phar
-src/vendor/
+composer.lock
+vendor/
 src/config.php
