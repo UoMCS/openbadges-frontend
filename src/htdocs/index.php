@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use UoMCS\OpenBadges\Frontend\Client;
+use OpenBadges\Frontend\Client;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

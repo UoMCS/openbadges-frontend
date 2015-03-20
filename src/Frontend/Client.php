@@ -1,6 +1,6 @@
 <?php
 
-namespace UoMCS\OpenBadges\Frontend;
+namespace OpenBadges\Frontend;
 
 class Client
 {
